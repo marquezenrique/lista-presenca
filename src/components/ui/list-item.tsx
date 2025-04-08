@@ -11,9 +11,9 @@ type Props = {
 
 function ListItem({ name, index, remove }: Props) {
   return (
-    <li className="h-[3.25rem] flex w-full bg-accent dark:bg-accent-foreground justify-between items-center pl-3 p-2 rounded-md gap-2">
+    <li className="h-[3.25rem] flex w-full bg-accent-foreground justify-between items-center pl-3 p-2 rounded-md gap-2">
       <div className="flex items-center gap-2 min-w-0 flex-1">
-        <div className="h-7 px-2.5 text-sm bg-accent-foreground dark:bg-accent leading-none flex items-center rounded text-accent dark:text-accent-foreground shrink-0">
+        <div className="h-7 px-2.5 text-sm bg-accent leading-none flex items-center rounded text-accent-foreground shrink-0">
           {index + 1}
         </div>
         <p className="truncate min-w-0">{name.name}</p>

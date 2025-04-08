@@ -19,7 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
-import { Pencil, X } from "lucide-react";
+import { LoaderCircle, Pencil, X } from "lucide-react";
 
 import { Button } from "./button";
 import { Input } from "./input";
@@ -76,10 +76,14 @@ function ListItem({ name, index, remove, updateName, isUpdating }: Props) {
                 onClick={handleSave}
                 disabled={isUpdating || editedName.trim() === name.name}
               >
-                {isUpdating ? "Salvando..." : "Salvar"}
+                {isUpdating ? (
+                  <LoaderCircle className="size-4 animate-spin" />
+                ) : (
+                  "Salvar"
+                )}
               </Button>
               <DialogClose asChild>
-                <Button variant="secondary">Cancelar</Button>
+                <Button variant="ghost">Cancelar</Button>
               </DialogClose>
             </DialogFooter>
           </DialogContent>

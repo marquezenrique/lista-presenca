@@ -15,8 +15,8 @@ export default function Header({
   setNewName: Dispatch<SetStateAction<string>>;
 }) {
   return (
-    <header className="w-full bg-black/5">
-      <header className="flex flex-col gap-2 p-4 max-w-[800px] mx-auto">
+    <header className="w-full bg-gradient-to-b from-black/10 to-transparent">
+      <header className="flex flex-col gap-2 p-4 pt-7 max-w-[800px] mx-auto">
         <h1 className="text-lg md:text-xl font-semibold">Lista de Pagantes</h1>
         <form onSubmit={handleSubmit} className="flex gap-2">
           <Input

@@ -55,7 +55,7 @@ function ListItem({ name, index, remove, updateName, isUpdating }: Props) {
       <div className="flex items-center gap-2 flex-none shrink-0">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="default" className="hidden md:inline-flex">
+            <Button variant="default">
               <Pencil className="size-4" />
             </Button>
           </DialogTrigger>

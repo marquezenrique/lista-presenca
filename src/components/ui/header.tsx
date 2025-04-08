@@ -21,7 +21,7 @@ export default function Header({
         <form onSubmit={handleSubmit} className="flex gap-2">
           <Input
             type="text"
-            className=""
+            className="md:text-base text-sm"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="Digite um nome"

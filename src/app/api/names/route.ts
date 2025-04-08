@@ -5,7 +5,10 @@ import clientPromise from "@/src/lib/db";
 
 export async function GET() {
   try {
-    const client = await clientPromise;
+    const client = await clientPromise.catch(e => {
+      console.error('DB connection failed:', e);
+      throw new Error('Database connection failed');
+    });
     const db = client.db();
     const names = await db.collection<NameOutput>("names").find({}).toArray();
     return NextResponse.json(names);

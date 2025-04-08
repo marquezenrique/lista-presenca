@@ -20,16 +20,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    console.log("📥 POST recebido");
-
     const client = await clientPromise;
     const db = client.db();
-
-    console.log("📦 Aguardando body...");
-    const body = await request.json();
-    console.log("✅ Body recebido:", body);
-
-    const { name } = body as NameInput;
+    const { name } = (await request.json()) as NameInput;
 
     if (!name || typeof name !== "string") {
       return NextResponse.json(
@@ -40,10 +33,9 @@ export async function POST(request: Request) {
 
     const result = await db.collection<NameInput>("names").insertOne({ name });
     const insertedId = result.insertedId.toString();
-
     return NextResponse.json({ _id: insertedId, name } satisfies NameOutput);
   } catch (e) {
-    console.error("❌ Erro no POST:", e);
+    console.error(e);
     return NextResponse.json({ error: "Failed to add name" }, { status: 500 });
   }
 }

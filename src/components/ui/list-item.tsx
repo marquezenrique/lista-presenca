@@ -1,6 +1,19 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./alert-dialog";
+
 import { Button } from "./button";
 import type { MouseEventHandler } from "react";
 import type { NameOutput } from "@/src/app/types";
+import { X } from "lucide-react";
 import { memo } from "react";
 
 type Props = {
@@ -18,13 +31,27 @@ function ListItem({ name, index, remove }: Props) {
         </div>
         <p className="truncate min-w-0">{name.name}</p>
       </div>
-      <Button
-        onClick={remove}
-        className="flex-none shrink-0"
-        variant="destructive"
-      >
-        Remover
-      </Button>
+      <AlertDialog>
+        <AlertDialogTrigger asChild className="flex-none shrink-0">
+          <Button variant="destructive">
+            <X className="size-4 md:size-5" />
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Você deseja confirmar a remoção de{" "}
+              <span className="text-black/80 font-medium">{name.name}</span> da
+              lista de pagantes?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={remove}>Confirmar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </li>
   );
 }

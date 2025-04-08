@@ -4,9 +4,13 @@ import type { NameOutput } from "@/src/app/types";
 export default function List({
   names,
   handleRemove,
+  handleUpdateName,
+  isUpdating,
 }: {
   names: NameOutput[];
   handleRemove: (id: string) => Promise<void>;
+  handleUpdateName: (id: string, newName: string) => Promise<void>;
+  isUpdating: Record<string, boolean>;
 }) {
   return (
     <div>
@@ -17,6 +21,8 @@ export default function List({
             index={index}
             name={name}
             remove={() => handleRemove(name._id)}
+            updateName={(newName) => handleUpdateName(name._id, newName)}
+            isUpdating={isUpdating[name._id] || false}
           />
         ))}
       </ul>

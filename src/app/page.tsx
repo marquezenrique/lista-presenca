@@ -7,7 +7,7 @@ async function getNames(): Promise<NameOutput[]> {
     const client = await clientPromise;
     const db = client.db();
     const names = await db.collection<NameOutput>("names").find({}).toArray();
-    return names.map((name: NameOutput) => ({
+    return names.map((name) => ({
       _id: name._id.toString(),
       name: name.name,
     }));

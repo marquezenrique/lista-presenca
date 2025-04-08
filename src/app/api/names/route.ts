@@ -71,3 +71,52 @@ export async function DELETE(request: Request) {
     );
   }
 }
+
+export async function PUT(request: Request) {
+  try {
+    const { _id, name } = (await request.json()) as {
+      _id: string;
+      name: string;
+    };
+
+    if (!_id || !name || typeof name !== "string") {
+      return NextResponse.json(
+        { error: "Both _id and name are required, and name must be a string" },
+        { status: 400 }
+      );
+    }
+
+    const client = await clientPromise;
+    const db = client.db();
+
+    const existingDoc = await db.collection("names").findOne({
+      _id: new ObjectId(_id),
+    });
+
+    if (!existingDoc) {
+      return NextResponse.json(
+        { error: "Document not found" },
+        { status: 404 }
+      );
+    }
+
+    const result = await db
+      .collection("names")
+      .updateOne({ _id: new ObjectId(_id) }, { $set: { name } });
+
+    if (result.modifiedCount === 0) {
+      return NextResponse.json(
+        { error: "No changes made or document not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ _id, name } satisfies NameOutput);
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      { error: "Failed to update name" },
+      { status: 500 }
+    );
+  }
+}

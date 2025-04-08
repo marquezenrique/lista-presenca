@@ -5,9 +5,7 @@ import clientPromise from "@/src/lib/db";
 
 export async function GET() {
   try {
-    console.log("➡️ API HIT");
     const client = await clientPromise;
-    console.log("✅ DB CONNECTED");
     const db = client.db();
     const names = await db.collection<NameOutput>("names").find({}).toArray();
     return NextResponse.json(names);
@@ -22,9 +20,16 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    console.log("📥 POST recebido");
+
     const client = await clientPromise;
     const db = client.db();
-    const { name } = (await request.json()) as NameInput;
+
+    console.log("📦 Aguardando body...");
+    const body = await request.json();
+    console.log("✅ Body recebido:", body);
+
+    const { name } = body as NameInput;
 
     if (!name || typeof name !== "string") {
       return NextResponse.json(
@@ -35,9 +40,10 @@ export async function POST(request: Request) {
 
     const result = await db.collection<NameInput>("names").insertOne({ name });
     const insertedId = result.insertedId.toString();
+
     return NextResponse.json({ _id: insertedId, name } satisfies NameOutput);
   } catch (e) {
-    console.error(e);
+    console.error("❌ Erro no POST:", e);
     return NextResponse.json({ error: "Failed to add name" }, { status: 500 });
   }
 }

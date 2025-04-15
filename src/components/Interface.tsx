@@ -1,16 +1,20 @@
 "use client";
 
 import type { NameOutput, PresenceListProps } from "@/src/app/types";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import Header from "./ui/header";
 import List from "./ui/list";
 
 export default function Interface({ initialNames }: PresenceListProps) {
-  const [names, setNames] = useState<NameOutput[]>(initialNames || []);
+  const [names, setNames] = useState<NameOutput[]>([]);
   const [newName, setNewName] = useState<string>("");
   const [isUpdating, setIsUpdating] = useState<Record<string, boolean>>({});
-
+  useEffect(() => {
+    if (initialNames.length > 0) {
+      setNames(initialNames);
+    }
+  }, [initialNames]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newName.trim()) return;

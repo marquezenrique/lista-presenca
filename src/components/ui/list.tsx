@@ -1,6 +1,7 @@
 import { Input } from "./input";
 import ListItem from "./list-item";
-import type { NameOutput } from "@/src/app/types";
+import type { NameOutput } from "@/src/lib/types";
+import type { ObjectId } from "mongodb";
 import { Search } from "lucide-react";
 import { useState } from "react";
 
@@ -11,8 +12,8 @@ export default function List({
   isUpdating,
 }: {
   names: NameOutput[];
-  handleRemove: (id: string) => Promise<void>;
-  handleUpdateName: (id: string, newName: string) => Promise<void>;
+  handleRemove: (id: ObjectId) => Promise<void>;
+  handleUpdateName: (id: ObjectId, newName: string) => Promise<void>;
   isUpdating: Record<string, boolean>;
 }) {
   const [search, setSearch] = useState<string>("");
@@ -39,12 +40,12 @@ export default function List({
 
           return (
             <ListItem
-              key={name._id}
+              key={String(name._id)}
               index={index}
               name={name}
               remove={() => handleRemove(name._id)}
               updateName={(newName) => handleUpdateName(name._id, newName)}
-              isUpdating={isUpdating[name._id] || false}
+              isUpdating={isUpdating[name._id.toString()] || false}
             />
           );
         })}

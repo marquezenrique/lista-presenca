@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { AccessProvider } from "../contexts/AccessContext";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <Analytics />
-      <body className={`font-["Outfit"] antialiased`}>{children}</body>
+      <body className={`font-["Outfit"] antialiased`}>
+        <AccessProvider>{children}</AccessProvider>
+      </body>
     </html>
   );
 }

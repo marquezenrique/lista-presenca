@@ -19,12 +19,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./dialog";
-import { LoaderCircle, Pencil, X } from "lucide-react";
+import { LoaderCircle, Pencil, PlusCircle, X } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip";
 
 import { Button } from "./button";
 import { Input } from "./input";
 import type { MouseEventHandler } from "react";
-import type { NameOutput } from "@/src/app/types";
+import type { NameOutput } from "@/src/lib/types";
 import { memo } from "react";
 import { useState } from "react";
 
@@ -53,6 +59,18 @@ function ListItem({ name, index, remove, updateName, isUpdating }: Props) {
         <p className="truncate min-w-0">{name.name}</p>
       </div>
       <div className="flex items-center gap-2 flex-none shrink-0">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="outline" className="hidden md:inline-flex">
+                <PlusCircle />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{name.addedBy}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="default">

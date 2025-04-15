@@ -3,6 +3,7 @@
 import type { NameOutput, PresenceListProps } from "@/src/lib/types";
 import { useCallback, useEffect, useState } from "react";
 
+import Download from "./ui/download";
 import Header from "./ui/header";
 import List from "./ui/list";
 import type { ObjectId } from "mongodb";
@@ -90,6 +91,7 @@ export default function Interface({ initialNames }: PresenceListProps) {
         handleUpdateName={handleUpdateName}
         isUpdating={isUpdating}
       />
+      <Download names={names} />
     </main>
   );
 }

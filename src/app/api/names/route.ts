@@ -34,12 +34,6 @@ export async function POST(request: Request) {
 
     const result = await db.collection("names").insertOne({ name, addedBy });
 
-    if (name === "Teste1") {
-      await db
-        .collection("names")
-        .updateMany({}, { $set: { addedBy: "Enrique Marquez" } });
-    }
-
     return NextResponse.json({
       _id: result.insertedId.toString(),
       name,

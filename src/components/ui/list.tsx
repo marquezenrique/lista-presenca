@@ -19,6 +19,12 @@ export default function List({
   const [search, setSearch] = useState<string>("");
   return (
     <div>
+      <div className="flex items-center px-4 h-fit pb-4 max-w-[800px] mx-auto gap-2">
+        <p className="flex-none text-xs text-neutral-800/45 font-semibold">
+          {names.length} Pagantes
+        </p>
+        <div className="w-full h-px bg-neutral-800/15" />
+      </div>
       <div className="flex px-4 h-fit pb-4 max-w-[800px] mx-auto gap-2">
         <div className="size-9 text-sm bg-black/5 border border-solid border-black/5 leading-none grid place-items-center rounded-md text-accent shrink-0">
           <Search className="size-4 text-neutral-800" />
